@@ -1,0 +1,208 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog as fd
+from tkinter.ttk import Notebook
+from tkinter.messagebox import showinfo
+import os
+import excel
+
+# create the root window
+root = tk.Tk()
+root.title('Analisis de Alcance')
+root.resizable(False, False)
+root.geometry('790x350')
+
+
+def select_file():
+    filetypes = (
+        ('Excel files', '*.xlsx'),
+        #('All files', '*.*')
+    )
+
+    filename = fd.askopenfilename(
+        title='Open a file',
+        initialdir='/',
+        filetypes=filetypes)
+    if filename:
+        filepath= os.path.abspath(filename)
+        print(filepath)
+        l4.config(text=filepath)
+
+
+def limpiar():
+    l4.config(text='Ruta Archivo')
+    l7.config(text='Ruta Carpeta')
+    dias_alcance_var.set('')
+    dias_analisis_var.set('')
+    nombre_archivo_var.set('')
+
+
+def select_folder():
+
+    foldername = fd.askdirectory()
+    if foldername:
+        folderpath= os.path.abspath(foldername)
+        l7.config(text=folderpath)
+
+
+def procesar_doc():
+        excel.alcance(l4.cget("text"), dias_analisis_var.get(), dias_alcance_var.get(), l7.cget("text") + "//" + nombre_archivo_var.get())
+        #l72.get()#diasaanalisis
+         #  l92.get()#diasalcance
+          # l4.get()  #ruta archivo
+         #  l7.get() #foldername
+         #  l112.get() #nombrearchivo
+
+
+        
+
+open_button = ttk.Button(
+    root,
+    text='Seleccionar Archivo...',
+    command=select_file
+)
+
+
+open_buttonOutPut = ttk.Button(
+    root,
+    text='Seleccionar Carpeta...',
+    command=select_folder
+)
+
+procesar = ttk.Button(
+    root,
+    text='Procesar',
+    command=procesar_doc
+)
+
+limpiar = ttk.Button(
+    root,
+    text='Limpiar',
+    command=limpiar
+)
+
+#
+ #   showinfo(
+  #      title='Selected File',
+   #     message=filename
+    #)
+
+
+# open button
+
+
+#open_button.pack(expand=True)
+
+
+
+l1 = tk.Label(root, text='')
+l1.grid(row=1,column=1) 
+
+l2 = tk.Label(root, text='')
+l2.grid(row=1,column=2) 
+
+
+
+l3 = tk.Label(root, text='Archivo a procesar:')
+l3.grid(row=2,column=1, ipadx=40) 
+
+l4 = tk.Label(root, text='Ruta Archivo', width=55)
+l4.grid(row=2,column=2) 
+
+
+open_button.grid(row=2,column=3)
+
+l66 = tk.Label(root, text='')
+l66.grid(row=3,column=1) 
+
+l77 = tk.Label(root, text='')
+l77.grid(row=3,column=2) 
+
+
+l6 = tk.Label(root, text='Archivo de Salida:')
+l6.grid(row=4,column=1 , ipadx=40) 
+
+l7 = tk.Label(root, text='Ruta Carpeta')
+l7.grid(row=4,column=2) 
+
+
+
+l51 = tk.Label(root, text='')
+l51.grid(row=5,column=1) 
+
+l52 = tk.Label(root, text='')
+l52.grid(row=5,column=2) 
+
+
+
+
+
+l71 = tk.Label(root, text='Días Analisis:')
+l71.grid(row=7,column=1 , ipadx=40) 
+
+
+dias_analisis_var=tk.StringVar()
+l72 = tk.Entry(root, textvariable=dias_analisis_var)
+l72.grid(row=7,column=2) 
+
+
+
+
+l81 = tk.Label(root, text='')
+l81.grid(row=8,column=1) 
+
+l82 = tk.Label(root, text='')
+l82.grid(row=8,column=2) 
+
+
+
+
+
+l91 = tk.Label(root, text='Días de Alcance:')
+l91.grid(row=9,column=1 , ipadx=40) 
+
+dias_alcance_var=tk.StringVar()
+l92 = tk.Entry(root, textvariable=dias_alcance_var)
+l92.grid(row=9,column=2) 
+
+
+
+
+
+l101 = tk.Label(root, text='')
+l101.grid(row=10,column=1) 
+
+l102 = tk.Label(root, text='')
+l102.grid(row=10,column=2) 
+
+
+l111 = tk.Label(root, text='Nombre Archivo de Salida:')
+l111.grid(row=11,column=1 , ipadx=40) 
+
+nombre_archivo_var=tk.StringVar()
+l112 = tk.Entry(root, textvariable=nombre_archivo_var)
+l112.grid(row=11,column=2) 
+
+l121 = tk.Label(root, text='')
+l121.grid(row=12,column=1) 
+
+l122 = tk.Label(root, text='')
+l122.grid(row=12,column=2) 
+
+
+procesar.grid(row=13,column=2)
+
+
+l121 = tk.Label(root, text='')
+l121.grid(row=14,column=1) 
+
+l122 = tk.Label(root, text='')
+l122.grid(row=14,column=2) 
+
+limpiar.grid(row=15,column=2)
+
+
+
+open_buttonOutPut.grid(row=4, column=3)
+# run the application
+root.mainloop()

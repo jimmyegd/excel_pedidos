@@ -1,0 +1,24 @@
+import sqlite3
+
+conn = sqlite3.connect('sqlite/pedidospy.db')
+
+print ("Opened database successfully");
+
+cursor = conn.execute("SELECT id_producto, descripcion, descripcion_larga, cod_barra, cod_barra1, cod_prov, num_fraccion from productos")
+for row in cursor:
+   print ("id_producto = ", row[0])
+   print ("descripcion = ", row[1])
+   print ("descripcion_larga = ", row[2])
+   print ("num_fraccion = ", row[6])
+   print ("cod_barra = ", row[3], "\n")
+
+print ("Operation done successfully")
+conn.close()
+
+
+#crear dos funciones 
+
+#primera(select) funciona recibe id_producto como parametro y devuel el num_fraccion, en caso de no existir devuelve -1
+
+
+#segunda funcion (insert) recibe id_producto, descripcion y num_fraccion, el num_fraccion lo ingresa el usuario
